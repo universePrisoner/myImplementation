@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<script>
+	
+	(function() {
+		Array.prototype.forEach = function(cb, scope) {
+			if ( typeof this !== 'object') {
+				throw new Error('It is not an array you have applied me to');
+			}
+			
+			if ( ! this.length ) {
+				return undefined;
+			}
+			
+			if ( typeof cb !== 'function' ) {
+				throw new Error('Please define a callback function');
+			}
+			
+			const localScope = scope || undefined;
+			
+			for ( let k = 0; k < this.length; k++ ) {
+				if ( localScope ) {
+					cb.call(localScope, this[k], k, this);
+				} else {
+					cb(this[k], k, this);
+				}
+				
+			}
+			
+			return undefined;
+		}
+		
+		const arr = [1,2,3,4];
+		arr.forEach(
+			function(elem, idx, aar) {
+				console.log(this.name.repeat(elem))
+			},
+			{
+				name: 'Hel'
+			}
+		);
+	})();
+	</script>
+</body>
+</html>
