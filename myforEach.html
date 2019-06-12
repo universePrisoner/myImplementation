@@ -22,12 +22,17 @@
 			}
 			
 			const localScope = scope || undefined;
+			const indexes    = Object.keys(this);
 			
-			for ( let k = 0; k < this.length; k++ ) {
+			for ( let k = 0; k < indexes.length; k++ ) {
+				const key = indexes[k];
+				
+				if ( key === 'length' ) continue;
+				
 				if ( localScope ) {
-					cb.call(localScope, this[k], k, this);
+					cb.call(localScope, this[key], key, this);
 				} else {
-					cb(this[k], k, this);
+					cb(this[key], key, this);
 				}
 				
 			}
@@ -35,15 +40,34 @@
 			return undefined;
 		}
 		
-		const arr = [1,2,3,4];
-		arr.forEach(
-			function(elem, idx, aar) {
-				console.log(this.name.repeat(elem))
+		const testObj = {
+			'a':1,
+			'b':3,
+			'c':'asdfasfd',
+			length: 2
+		};
+
+		Array.prototype.forEach.call(testObj ,
+			function(elem, idx, obj) {
+				console.log({elem,idx, obj, scope: this})
 			},
 			{
-				name: 'Hel'
+				name: 'zeroWheel',
+				data: 'object'
+
 			}
 		);
+
+
+		const testArrayObj = [32,23242,23423,4234,'asdfasfd'];
+
+		testArrayObj.forEach(
+			function(elem, idx, arr) {
+					console.log({elem,idx,  arr, scope: this})
+			}, {
+				name: 'zeroWheel',
+				data: 'object:array'
+			});
 	})();
 	</script>
 </body>
