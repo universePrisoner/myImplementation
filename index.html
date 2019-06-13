@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<!--<script src="./scripts/forEach.js"></script>-->
+	<script src="./scripts/map.js"></script>
+	<script>
+		const testMapFunc = function() {
+			const test1 = {
+				'a':1,
+				'b':3,
+				'c':'asdfasfd',
+				length: 2
+			};
+			const tested1 = Array.prototype.map.call(test1  ,
+				function(elem, idx, obj) {
+					return elem;
+				},
+				{
+					name: 'zeroWheel',
+					data: 'object:collection'
+				}
+			);
+			
+			
+			const test2 = [32,23242,23423,4234,'asdfasfd'];
+			const tested2 =  test2.map(
+				function(elem, idx, arr) {
+					return elem;
+				}, {
+					name: 'zeroWheel',
+					data: 'object:array'
+				});
+		}
+		
+		
+		const testForEachFunc = function() {
+			const test1 = {
+				'a':1,
+				'b':3,
+				'c':'asdfasfd',
+				length: 2
+			};
+			const tested1 = Array.prototype.forEach.call(test1  ,
+				function(elem, idx, obj) {
+					console.log({elem,idx, obj, scope: this})
+				},
+				{
+					name: 'zeroWheel',
+					data: 'object'
+				}
+			);
+			
+			const test2 = [32,23242,23423,4234,'asdfasfd'];
+			const tested2 =  test2.forEach(
+				function(elem, idx, arr) {
+						console.log({elem,idx,  arr, scope: this})
+				}, {
+					name: 'zeroWheel',
+					data: 'object:array'
+				});
+		}
+	
+	</script>
+</body>
+</html>
